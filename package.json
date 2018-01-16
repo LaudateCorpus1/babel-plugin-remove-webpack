@@ -21,6 +21,9 @@
   ],
   "author": "Kenneth Powers <ken@kenpowers.net> (http://knpw.rs)",
   "license": "MIT",
+  "dependencies": {
+    "babel-template": "^6.26.0"
+  },
   "devDependencies": {
     "babel-cli": "^6.3.17",
     "babel-core": "^6.3.26",

@@ -1,3 +1,5 @@
+import template from 'babel-template';
+
 /**
  * Determines if a given node represents a call to prop on object.
  * @param  {Object} node The ast node.
@@ -15,6 +17,10 @@ const validPossibleFunctionTypes = [
   'ArrowFunctionExpression',
   'FunctionExpression',
 ];
+
+const forcedAsyncTemplate = template(`
+  (setTimeout(SOURCE));
+`);
 
 /**
  * Babel plugin which replaces `require.ensure` calls with self-executing anonymous functions.
@@ -63,7 +69,8 @@ export default function ({ types: t }) {
           // TRANSFORM!
           // Remove require.ensure wrapper.
           fn.params = [];
-          path.replaceWith(t.callExpression(fn, []));
+          // path.replaceWith(t.callExpression(fn, []));
+          path.replaceWith(forcedAsyncTemplate({SOURCE: fn}));
         }
       },
     },
